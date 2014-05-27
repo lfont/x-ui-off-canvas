@@ -1,0 +1,99 @@
+<link rel="stylesheet" href="x-ui-off-canvas.css">
+
+<script>
+  (function (window) {
+    var template = (function createTemplate () {
+      var d = document.createElement('div');
+      d.innerHTML = '<section class="off-canvas"></section>' +
+                    '<section class="scrim"></section>' +
+                    '<section class="toolbar">' +
+                      '<button>Toggle</button>' +
+                    '</section>' +
+                    '<section class="on-canvas"></section>';
+
+      var f = document.createDocumentFragment();
+      while (d.childNodes.length) {
+        f.appendChild(d.childNodes[0]);
+      }
+
+      return {
+        content: f
+      };
+    }());
+
+    window.addEventListener('WebComponentsReady', function (e) {
+
+      function toggle (el, isActive) {
+        if (isActive) {
+         el.querySelector('.off-canvas').classList.add('active');
+         el.querySelector('.scrim').classList.add('active');
+        } else {
+         el.querySelector('.off-canvas').classList.remove('active');
+         el.querySelector('.scrim').classList.remove('active');
+        }
+      }
+
+      window.XUiOffCanvas = document.registerElement('x-ui-off-canvas', {
+
+        prototype: Object.create(HTMLElement.prototype, {
+
+          createdCallback: {
+            value: function () {
+              var _this = this;
+
+              var templateContent = template.content;
+              var tpl = templateContent.cloneNode(true);
+
+              var navigation = this.querySelector('[navigation]');
+              tpl.querySelector('.off-canvas').appendChild(navigation);
+
+              var tools = this.querySelector('[tools]');
+              tpl.querySelector('.toolbar').appendChild(tools);
+
+              var all = this.querySelector('*');
+              tpl.querySelector('.on-canvas').appendChild(all);
+
+              this.appendChild(tpl);
+              toggle(this, this.isActive());
+
+              this.querySelector('.scrim').addEventListener('click', function (e) {
+                _this.toggle();
+              });
+
+              this.querySelector('.toolbar button').addEventListener('click', function (e) {
+                _this.toggle();
+              });
+
+              var widthQuery = window.matchMedia('(min-width: 850px)');
+              widthQuery.addListener(function (mediaQueryList) {
+                toggle(_this, mediaQueryList.matches);
+              });
+            }
+          },
+
+          attributeChangedCallback: {
+            value: function (attributeName, oldVal, newVal) {
+              if (attributeName === 'active') {
+                  toggle(this, this.isActive());
+              }
+            }
+          },
+
+          isActive: {
+            value: function () {
+              var active = this.getAttribute('active');
+              return active === 'true';
+            }
+          },
+
+          toggle: {
+            value: function () {
+              this.setAttribute('active', !this.isActive());
+            }
+          }
+        })
+      });
+    });
+  })(window);
+</script>
+

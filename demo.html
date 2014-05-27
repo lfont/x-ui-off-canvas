@@ -1,0 +1,55 @@
+<!doctype html>
+<html>
+<head>
+  <script src="/bower_components/HTMLImports/html-imports.js"></script>
+  <script src="/bower_components/CustomElements/custom-elements.js"></script>
+  <link rel="import" href="/x-ui-off-canvas.html">
+  <style>
+      html, body {
+        height: 100%;
+        overflow-x: hidden;
+      }
+
+      body {
+        margin: 0;
+      }
+
+      .off-canvas,
+      .toolbar {
+        background-color: #444444;
+        color: white;
+      }
+
+      .toolbar {
+        padding: 15px;
+      }
+
+      .toolbar button {
+        float: left;
+        margin-right: 15px;
+      }
+
+      .on-canvas {
+        padding: 15px;
+      }
+  </style>
+</head>
+<body>
+    <x-ui-off-canvas>
+        <nav navigation>
+            <ul>
+                <li>Home</li>
+                <li>Explore</li>
+                <li>Favorites</li>
+            </ul>
+        </nav>
+
+        <div tools flex>Off Canvas</div>
+
+        <article>
+            This is an "Off Canvas" custom element.
+        </article>
+    </x-ui-off-canvas>
+</body>
+</html>
+

@@ -1,0 +1,21 @@
+{
+  "name": "x-ui-off-canvas",
+  "version": "0.0.1",
+  "authors": [
+    "Loïc Fontaine <ljph.fontaine@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "CustomElements": "polymer/customelements#~0.2.4",
+    "HTMLImports": "polymer/htmlimports#~0.2.4"
+  }
+}
+
